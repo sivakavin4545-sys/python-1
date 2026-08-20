@@ -8,16 +8,16 @@ class Solution:
             right = len(nums) - 1
 
             while left < right:
-                total = nums[i] + nums[left] + nums[right]
+                current_sum = nums[i] + nums[left] + nums[right]
 
-                if abs(total - target) < abs(closest - target):
-                    closest = total
+                if abs(current_sum - target) < abs(closest - target):
+                    closest = current_sum
 
-                if total < target:
+                if current_sum < target:
                     left += 1
-                elif total > target:
+                elif current_sum > target:
                     right -= 1
                 else:
-                    return total
+                    return target
 
         return closest
