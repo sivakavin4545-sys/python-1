@@ -2,30 +2,33 @@ class Solution:
     def myAtoi(self, s):
         i = 0
         n = len(s)
+        sign = 1
+        number = 0
 
-        # Skip spaces
+        # Skip leading spaces
         while i < n and s[i] == " ":
             i += 1
 
-        # Sign
-        sign = 1
-        if i < n and (s[i] == "+" or s[i] == "-"):
+        # Read optional sign
+        if i < n and s[i] in "+-":
             if s[i] == "-":
                 sign = -1
             i += 1
 
-        # Convert digits
-        num = 0
+        # Read digits
         while i < n and s[i].isdigit():
-            num = num * 10 + int(s[i])
+            number = number * 10 + int(s[i])
             i += 1
 
-        num *= sign
+        number *= sign
 
-        # 32-bit range
-        if num < -2**31:
-            return -2**31
-        if num > 2**31 - 1:
-            return 2**31 - 1
+        # Clamp to 32-bit signed integer range
+        INT_MIN = -2**31
+        INT_MAX = 2**31 - 1
 
-        return num
+        if number < INT_MIN:
+            return INT_MIN
+        if number > INT_MAX:
+            return INT_MAX
+
+        return number
