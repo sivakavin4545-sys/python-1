@@ -1,27 +1,26 @@
 class Solution:
     def longestPalindrome(self, s):
         start = 0
-        end = 0
+        max_length = 1
 
         def expand(left, right):
             while left >= 0 and right < len(s) and s[left] == s[right]:
                 left -= 1
                 right += 1
+
             return left + 1, right - 1
 
         for i in range(len(s)):
             # Odd-length palindrome, e.g. "aba"
-            left1, right1 = expand(i, i)
+            left, right = expand(i, i)
+            if right - left + 1 > max_length:
+                start = left
+                max_length = right - left + 1
 
             # Even-length palindrome, e.g. "abba"
-            left2, right2 = expand(i, i + 1)
+            left, right = expand(i, i + 1)
+            if right - left + 1 > max_length:
+                start = left
+                max_length = right - left + 1
 
-            if right1 - left1 > end - start:
-                start = left1
-                end = right1
-
-            if right2 - left2 > end - start:
-                start = left2
-                end = right2
-
-        return s[start:end + 1]
+        return s[start:start + max_length]
