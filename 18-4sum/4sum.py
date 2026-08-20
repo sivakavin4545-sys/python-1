@@ -18,8 +18,17 @@ class Solution:
                 while left < right:
                     total = nums[i] + nums[j] + nums[left] + nums[right]
 
-                    if total == target:
-                        result.append([nums[i], nums[j], nums[left], nums[right]])
+                    if total < target:
+                        left += 1
+                    elif total > target:
+                        right -= 1
+                    else:
+                        result.append([
+                            nums[i],
+                            nums[j],
+                            nums[left],
+                            nums[right]
+                        ])
 
                         left += 1
                         right -= 1
@@ -29,10 +38,5 @@ class Solution:
 
                         while left < right and nums[right] == nums[right + 1]:
                             right -= 1
-
-                    elif total < target:
-                        left += 1
-                    else:
-                        right -= 1
 
         return result
