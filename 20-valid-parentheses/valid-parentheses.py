@@ -1,10 +1,15 @@
 class Solution:
     def isValid(self, s):
         stack = []
-        pairs = {")": "(", "]": "[", "}": "{"}
+        pairs = {
+            ")": "(",
+            "]": "[",
+            "}": "{"
+        }
 
         for char in s:
             if char in pairs:
+                # Closing bracket: must match the latest opening bracket
                 if not stack or stack.pop() != pairs[char]:
                     return False
             else:
