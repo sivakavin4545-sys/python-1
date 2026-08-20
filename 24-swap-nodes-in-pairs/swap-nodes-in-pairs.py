@@ -1,16 +1,19 @@
 class Solution:
     def swapPairs(self, head):
-        dummy = ListNode(0, head)
-        prev = dummy
+        dummy = ListNode(0)
+        dummy.next = head
+        previous = dummy
 
-        while prev.next and prev.next.next:
-            first = prev.next
+        while previous.next and previous.next.next:
+            first = previous.next
             second = first.next
 
-            prev.next = second
+            # Swap the two nodes
+            previous.next = second
             first.next = second.next
             second.next = first
 
-            prev = first
+            # Move to the next pair
+            previous = first
 
         return dummy.next
