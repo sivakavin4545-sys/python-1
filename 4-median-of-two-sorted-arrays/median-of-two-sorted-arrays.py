@@ -3,44 +3,27 @@ class Solution:
         if len(nums1) > len(nums2):
             nums1, nums2 = nums2, nums1
 
-        m = len(nums1)
-        n = len(nums2)
+        m, n = len(nums1), len(nums2)
+        low, high = 0, m
 
-        left = 0
-        right = m
-        half = (m + n + 1) // 2
+        while low <= high:
+            cut1 = (low + high) // 2
+            cut2 = (m + n + 1) // 2 - cut1
 
-        while left <= right:
-            i = (left + right) // 2
-            j = half - i
+            max_left1 = float("-inf") if cut1 == 0 else nums1[cut1 - 1]
+            min_right1 = float("inf") if cut1 == m else nums1[cut1]
 
-            if i == 0:
-                left1 = float('-inf')
-            else:
-                left1 = nums1[i - 1]
+            max_left2 = float("-inf") if cut2 == 0 else nums2[cut2 - 1]
+            min_right2 = float("inf") if cut2 == n else nums2[cut2]
 
-            if i == m:
-                right1 = float('inf')
-            else:
-                right1 = nums1[i]
-
-            if j == 0:
-                left2 = float('-inf')
-            else:
-                left2 = nums2[j - 1]
-
-            if j == n:
-                right2 = float('inf')
-            else:
-                right2 = nums2[j]
-
-            if left1 <= right2 and left2 <= right1:
+            if max_left1 <= min_right2 and max_left2 <= min_right1:
                 if (m + n) % 2 == 1:
-                    return float(max(left1, left2))
+                    return float(max(max_left1, max_left2))
 
-                return (max(left1, left2) + min(right1, right2)) / 2.0
+                return (max(max_left1, max_left2) +
+                        min(min_right1, min_right2)) / 2.0
 
-            elif left1 > right2:
-                right = i - 1
+            if max_left1 > min_right2:
+                high = cut1 - 1
             else:
-                left = i + 1
+                low = cut1 + 1
