@@ -4,16 +4,17 @@ class Solution:
             return s
 
         rows = [""] * numRows
-        row, step = 0, 1
+        current_row = 0
+        direction = 1  # 1 = down, -1 = up
 
         for char in s:
-            rows[row] += char
+            rows[current_row] += char
 
-            if row == 0:
-                step = 1
-            elif row == numRows - 1:
-                step = -1
+            if current_row == 0:
+                direction = 1
+            elif current_row == numRows - 1:
+                direction = -1
 
-            row += step
+            current_row += direction
 
         return "".join(rows)
