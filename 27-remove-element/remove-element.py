@@ -1,10 +1,10 @@
 class Solution:
     def removeElement(self, nums, val):
-        k = 0
+        write = 0
 
         for num in nums:
             if num != val:
-                nums[k] = num
-                k += 1
+                nums[write] = num
+                write += 1
 
-        return k
+        return write
